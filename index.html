@@ -3,81 +3,267 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CurhatSpace • Bisa Langsung Jalan!</title>
+    <title>CurhatSpace • Premium Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --secondary: #94a3b8;
+            --accent: #f59e0b;
+            --background: #0f172a;
+            --card: #1e293b;
+            --text: #f1f5f9;
+            --text-light: #94a3b8;
+            --border: #334155;
+            --like: #ef4444;
+            --success: #10b981;
         }
 
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            color: var(--text);
             min-height: 100vh;
-            padding: 20px;
-            color: white;
+            background-image: 
+                radial-gradient(at 80% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                radial-gradient(at 20% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 2rem 1rem;
+            min-height: 100vh;
         }
 
+        /* Header */
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
         }
 
         .logo {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
         }
 
         .tagline {
+            color: var(--text-light);
             font-size: 1.2rem;
-            opacity: 0.9;
+            font-weight: 400;
         }
 
-        .tabs {
+        /* Navigation */
+        .nav-tabs {
             display: flex;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            padding: 5px;
-            margin-bottom: 30px;
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 0.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
         }
 
-        .tab {
+        .nav-tab {
             flex: 1;
             text-align: center;
-            padding: 15px;
+            padding: 1rem;
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .nav-tab.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .nav-tab:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Curhat Input */
+        .curhat-input {
+            width: 100%;
+            min-height: 140px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            font-size: 1rem;
+            color: var(--text);
+            resize: vertical;
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .curhat-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            border-radius: 10px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Curhat Items */
+        .curhat-item {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
             transition: all 0.3s ease;
         }
 
-        .tab.active {
-            background: white;
-            color: #667eea;
-            font-weight: bold;
+        .curhat-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
         }
 
-        .content {
+        .curhat-content {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .curhat-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .curhat-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .like-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .like-btn:hover {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--like);
+        }
+
+        .like-btn.liked {
+            color: var(--like);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .like-count {
+            font-weight: 600;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .timestamp {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Tab Content */
+        .tab-content {
             display: none;
+            animation: fadeIn 0.4s ease;
         }
 
-        .content.active {
+        .tab-content.active {
             display: block;
-            animation: fadeIn 0.5s ease;
         }
 
         @keyframes fadeIn {
@@ -85,208 +271,271 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .curhat-input {
-            width: 100%;
-            min-height: 150px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            color: white;
-            font-size: 16px;
-            resize: vertical;
-            margin-bottom: 20px;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .logo {
+                font-size: 2.8rem;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .nav-tab {
+                padding: 0.8rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .curhat-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .curhat-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
         }
 
-        .curhat-input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
+        /* Like Animation */
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.3); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
 
-        .btn {
-            background: linear-gradient(45deg, #ff6b6b, #feca57);
+        .like-btn.liked i {
+            animation: heartBeat 0.6s ease;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--success);
             color: white;
-            border: none;
-            padding: 15px 30px;
+            padding: 1rem 1.5rem;
             border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.3s ease;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+            z-index: 1000;
+            animation: slideInRight 0.3s ease;
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .curhat-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .curhat-item {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 15px;
-            border-left: 5px solid #ff6b6b;
-        }
-
-        .curhat-text {
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 10px;
-        }
-
-        .curhat-meta {
-            display: flex;
-            justify-content: between;
-            font-size: 14px;
-            opacity: 0.8;
-        }
-
-        .like-btn {
-            background: none;
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .about-content {
-            line-height: 1.6;
-        }
-
-        .about-content p {
-            margin-bottom: 15px;
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="logo">CurhatSpace</div>
-            <div class="tagline">Ruang aman untuk berbagi perasaan • Anonim • Terpercaya</div>
-        </div>
+        <header class="header">
+            <h1 class="logo">CurhatSpace</h1>
+            <p class="tagline">Ruang aman untuk berbagi perasaan • Anonim • Terpercaya</p>
+        </header>
 
-        <div class="tabs">
-            <div class="tab active" onclick="showTab('curhat')">Tulis Curhatan</div>
-            <div class="tab" onclick="showTab('feed')">Feed</div>
-            <div class="tab" onclick="showTab('trending')">Trending</div>
-            <div class="tab" onclick="showTab('about')">Tentang</div>
-        </div>
+        <nav class="nav-tabs">
+            <a class="nav-tab active" data-tab="curhat">
+                <i class="fas fa-edit"></i> Tulis Curhatan
+            </a>
+            <a class="nav-tab" data-tab="feed">
+                <i class="fas fa-stream"></i> Feed
+            </a>
+            <a class="nav-tab" data-tab="trending">
+                <i class="fas fa-fire"></i> Trending
+            </a>
+            <a class="nav-tab" data-tab="about">
+                <i class="fas fa-info-circle"></i> Tentang
+            </a>
+        </nav>
 
-        <!-- TAB 1: Tulis Curhatan -->
-        <div id="curhat" class="content active">
-            <h2>Bagikan Perasaanmu</h2>
-            <textarea class="curhat-input" placeholder="Apa yang ingin kamu ceritakan hari ini? Tulis dengan bebas..." id="curhatText"></textarea>
-            <button class="btn" onclick="publishCurhat()">Publikasikan Curhatan</button>
-        </div>
-
-        <!-- TAB 2: Feed -->
-        <div id="feed" class="content">
-            <h2>Feed Curhatan</h2>
-            <div class="curhat-list" id="feedList">
-                <!-- Curhatan akan muncul di sini -->
-            </div>
-        </div>
-
-        <!-- TAB 3: Trending -->
-        <div id="trending" class="content">
-            <h2>Trending</h2>
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-number" id="totalLikes">0</div>
-                    <div>Total Likes</div>
+        <main>
+            <!-- Curhat Tab -->
+            <section id="curhat" class="tab-content active">
+                <div class="card">
+                    <h2 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-pencil-alt" style="color: var(--primary);"></i> 
+                        Bagikan Perasaanmu
+                    </h2>
+                    <textarea class="curhat-input" placeholder="Apa yang ingin kamu ceritakan hari ini? Tulis dengan bebas, tanpa khawatir..." id="curhatText"></textarea>
+                    <button class="btn-primary" id="publishBtn">
+                        <i class="fas fa-paper-plane"></i> Publikasikan Curhatan
+                    </button>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="totalCurhats">0</div>
-                    <div>Total Curhatan</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="activeUsers">15</div>
-                    <div>Pengguna Aktif</div>
-                </div>
-            </div>
-            <div class="curhat-list" id="trendingList">
-                <!-- Curhatan trending akan muncul di sini -->
-            </div>
-        </div>
+            </section>
 
-        <!-- TAB 4: Tentang -->
-        <div id="about" class="content">
-            <h2>Tentang CurhatSpace</h2>
-            <div class="about-content">
-                <p>CurhatSpace adalah platform sederhana untuk berbagi perasaan secara anonim. Kamu bisa menulis curhatan, membaca curhatan orang lain, dan memberikan like pada curhatan yang relate dengan perasaanmu.</p>
-                <p><strong>Fitur:</strong></p>
-                <ul>
-                    <li>💬 Tulis curhatan anonim</li>
-                    <li>❤️ Beri like pada curhatan</li>
-                    <li>📊 Lihat statistik trending</li>
-                    <li>🔒 100% privasi terjaga</li>
-                </ul>
-            </div>
-        </div>
+            <!-- Feed Tab -->
+            <section id="feed" class="tab-content">
+                <div class="card">
+                    <h2 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-stream" style="color: var(--primary);"></i> 
+                        Feed Curhatan
+                    </h2>
+                    <div id="curhatsContainer">
+                        <!-- Curhatan akan dimuat di sini -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trending Tab -->
+            <section id="trending" class="tab-content">
+                <div class="card">
+                    <h2 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-fire" style="color: var(--accent);"></i> 
+                        Trending Curhatan
+                    </h2>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalLikes">0</div>
+                            <div class="stat-label">Total Likes</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalCurhats">0</div>
+                            <div class="stat-label">Total Curhatan</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="todayPosts">0</div>
+                            <div class="stat-label">Posting Hari Ini</div>
+                        </div>
+                    </div>
+
+                    <div id="trendingContainer">
+                        <!-- Trending curhatan akan dimuat di sini -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Tab -->
+            <section id="about" class="tab-content">
+                <div class="card">
+                    <h2 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fas fa-heart" style="color: var(--primary);"></i> 
+                        Tentang CurhatSpace
+                    </h2>
+                    <p style="margin-bottom: 1.5rem; color: var(--text-light); line-height: 1.6;">
+                        CurhatSpace adalah platform premium untuk berbagi perasaan secara anonim. 
+                        Dengan desain modern dan fitur lengkap, kamu bisa mengekspresikan diri 
+                        tanpa batas dan merasa terhubung dengan orang lain.
+                    </p>
+                    
+                    <div style="display: grid; gap: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: rgba(99, 102, 241, 0.1); border-radius: 10px;">
+                            <i class="fas fa-thumbs-up" style="color: var(--primary); font-size: 1.5rem;"></i>
+                            <div>
+                                <h4 style="margin-bottom: 0.25rem;">Fitur Like Interaktif</h4>
+                                <p style="color: var(--text-light); font-size: 0.9rem;">Beri like pada curhatan yang relate dengan perasaanmu</p>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: rgba(99, 102, 241, 0.1); border-radius: 10px;">
+                            <i class="fas fa-chart-line" style="color: var(--primary); font-size: 1.5rem;"></i>
+                            <div>
+                                <h4 style="margin-bottom: 0.25rem;">Statistik Real-time</h4>
+                                <p style="color: var(--text-light); font-size: 0.9rem;">Pantau trending curhatan dan aktivitas terkini</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
 
     <script>
-        // SIMPLE DATA STORAGE
+        // Data Management
         let curhats = JSON.parse(localStorage.getItem('curhats')) || [];
-        let nextId = curhats.length > 0 ? Math.max(...curhats.map(c => c.id)) + 1 : 1;
+        let likedCurhats = JSON.parse(localStorage.getItem('likedCurhats')) || [];
 
-        // SAMPLE DATA JIKA MASIH KOSONG
+        // Initialize with sample data if empty
         if (curhats.length === 0) {
             curhats = [
-                { id: 1, text: "Hari ini aku merasa bersyukur bisa membantu teman!", likes: 5, timestamp: "2 jam lalu" },
-                { id: 2, text: "Sedih banget nilai ujianku jelek padahal sudah belajar keras", likes: 3, timestamp: "5 jam lalu" },
-                { id: 3, text: "Seneng banget akhirnya liburan semester!", likes: 8, timestamp: "1 jam lalu" }
+                {
+                    id: 1,
+                    text: "Hari ini aku merasa sangat bersyukur bisa membantu teman yang sedang kesulitan. Rasanya hatiku plong sekali!",
+                    timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toLocaleString('id-ID'),
+                    likes: 12,
+                    isLiked: false
+                },
+                {
+                    id: 2,
+                    text: "Sedih banget nilai ujianku jelek padahal sudah belajar mati-matian. Apa yang salah ya dengan caraku belajar?",
+                    timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000).toLocaleString('id-ID'),
+                    likes: 8,
+                    isLiked: false
+                },
+                {
+                    id: 3,
+                    text: "Seneng banget akhirnya project besar selesai! Teamwork emang kunci kesuksesan.",
+                    timestamp: new Date(Date.now() - 1 * 60 * 60 * 1000).toLocaleString('id-ID'),
+                    likes: 15,
+                    isLiked: false
+                }
             ];
-            localStorage.setItem('curhats', JSON.stringify(curhats));
+            saveCurhats();
         }
 
-        // FUNGSI SEDERHANA TANPA RIBET
-        function showTab(tabName) {
-            // Sembunyikan semua tab
-            document.querySelectorAll('.content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
+        // DOM Ready
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+
+        function initializeApp() {
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Load initial data
+            updateLikedStatus();
+            loadCurhats();
+            updateStats();
+        }
+
+        function setupEventListeners() {
+            // Tab navigation
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetTab = this.getAttribute('data-tab');
+                    switchTab(targetTab);
+                });
             });
 
-            // Tampilkan tab yang dipilih
-            document.getElementById(tabName).classList.add('active');
-            document.querySelectorAll('.tab').forEach(tab => {
-                if (tab.textContent.includes(tabName.charAt(0).toUpperCase() + tabName.slice(1))) {
-                    tab.classList.add('active');
+            // Publish curhat
+            document.getElementById('publishBtn').addEventListener('click', publishCurhat);
+
+            // Enter key to publish
+            document.getElementById('curhatText').addEventListener('keydown', function(e) {
+                if (e.ctrlKey && e.key === 'Enter') {
+                    publishCurhat();
                 }
             });
+        }
 
-            // Refresh konten jika perlu
+        function switchTab(tabName) {
+            // Update active tab
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+
+            // Refresh content
             if (tabName === 'feed') {
-                loadFeed();
+                loadCurhats();
             } else if (tabName === 'trending') {
                 loadTrending();
             }
@@ -296,97 +545,129 @@
             const textarea = document.getElementById('curhatText');
             const text = textarea.value.trim();
 
-            if (text === '') {
-                alert('Tulis dulu curhatannya bang!');
+            if (!text) {
+                showNotification('Tulis dulu curhatannya bang!', 'error');
                 return;
             }
 
-            // Buat curhatan baru
             const newCurhat = {
-                id: nextId++,
+                id: Date.now(),
                 text: text,
+                timestamp: new Date().toLocaleString('id-ID'),
                 likes: 0,
-                timestamp: 'Baru saja'
+                isLiked: false
             };
 
-            // Simpan ke array dan localStorage
             curhats.unshift(newCurhat);
-            localStorage.setItem('curhats', JSON.stringify(curhats));
-
-            // Reset form
+            saveCurhats();
             textarea.value = '';
 
-            // Pindah ke tab feed
-            showTab('feed');
-
-            // Tampilkan notifikasi sederhana
-            alert('Curhatan berhasil diposting!');
+            showNotification('Curhatan berhasil dipublikasikan!', 'success');
+            switchTab('feed');
         }
 
-        function loadFeed() {
-            const feedList = document.getElementById('feedList');
-            feedList.innerHTML = '';
+        function loadCurhats() {
+            const container = document.getElementById('curhatsContainer');
+            
+            if (curhats.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--text-light);">Belum ada curhatan. Jadilah yang pertama berbagi!</div>';
+                return;
+            }
 
-            curhats.forEach(curhat => {
-                const curhatElement = document.createElement('div');
-                curhatElement.className = 'curhat-item';
-                curhatElement.innerHTML = `
-                    <div class="curhat-text">${curhat.text}</div>
+            container.innerHTML = curhats.map(curhat => `
+                <div class="curhat-item">
+                    <div class="curhat-content">${curhat.text}</div>
                     <div class="curhat-meta">
-                        <span>${curhat.timestamp}</span>
-                        <button class="like-btn" onclick="likeCurhat(${curhat.id})">
-                            ❤️ ${curhat.likes} Likes
-                        </button>
+                        <span class="timestamp">${curhat.timestamp}</span>
+                        <div class="curhat-actions">
+                            <button class="like-btn ${curhat.isLiked ? 'liked' : ''}" onclick="toggleLike(${curhat.id})">
+                                <i class="fas fa-heart"></i>
+                                <span class="like-count">${curhat.likes}</span>
+                            </button>
+                        </div>
                     </div>
-                `;
-                feedList.appendChild(curhatElement);
-            });
+                </div>
+            `).join('');
         }
 
         function loadTrending() {
-            const trendingList = document.getElementById('trendingList');
-            trendingList.innerHTML = '';
-
-            // Urutkan berdasarkan likes terbanyak
+            const container = document.getElementById('trendingContainer');
             const trending = [...curhats].sort((a, b) => b.likes - a.likes).slice(0, 5);
 
-            trending.forEach(curhat => {
-                const curhatElement = document.createElement('div');
-                curhatElement.className = 'curhat-item';
-                curhatElement.innerHTML = `
-                    <div class="curhat-text">${curhat.text}</div>
-                    <div class="curhat-meta">
-                        <span>${curhat.likes} Likes • ${curhat.timestamp}</span>
-                    </div>
-                `;
-                trendingList.appendChild(curhatElement);
-            });
+            if (trending.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-light);">Belum ada curhatan trending.</div>';
+                return;
+            }
 
-            // Update stats
+            container.innerHTML = trending.map(curhat => `
+                <div class="curhat-item">
+                    <div class="curhat-content">${curhat.text}</div>
+                    <div class="curhat-meta">
+                        <span class="timestamp">${curhat.likes} likes • ${curhat.timestamp}</span>
+                    </div>
+                </div>
+            `).join('');
+
             updateStats();
         }
 
-        function likeCurhat(curhatId) {
+        function toggleLike(curhatId) {
             const curhat = curhats.find(c => c.id === curhatId);
-            if (curhat) {
+            if (!curhat) return;
+
+            if (curhat.isLiked) {
+                curhat.likes--;
+                curhat.isLiked = false;
+                likedCurhats = likedCurhats.filter(id => id !== curhatId);
+            } else {
                 curhat.likes++;
-                localStorage.setItem('curhats', JSON.stringify(curhats));
-                loadFeed();
-                loadTrending();
+                curhat.isLiked = true;
+                likedCurhats.push(curhatId);
             }
+
+            saveCurhats();
+            localStorage.setItem('likedCurhats', JSON.stringify(likedCurhats));
+            loadCurhats();
+            loadTrending();
+        }
+
+        function updateLikedStatus() {
+            curhats.forEach(curhat => {
+                curhat.isLiked = likedCurhats.includes(curhat.id);
+            });
         }
 
         function updateStats() {
             const totalLikes = curhats.reduce((sum, curhat) => sum + curhat.likes, 0);
+            const today = new Date().toDateString();
+            const todayPosts = curhats.filter(curhat => 
+                new Date(curhat.timestamp).toDateString() === today
+            ).length;
+
             document.getElementById('totalLikes').textContent = totalLikes;
             document.getElementById('totalCurhats').textContent = curhats.length;
+            document.getElementById('todayPosts').textContent = todayPosts;
         }
 
-        // INITIALIZE SAAT HALAMAN DIMUAT
-        window.onload = function() {
-            loadFeed();
-            updateStats();
-        };
+        function saveCurhats() {
+            localStorage.setItem('curhats', JSON.stringify(curhats));
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.style.background = type === 'success' ? 'var(--success)' : 'var(--like)';
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Global functions for HTML onclick
+        window.toggleLike = toggleLike;
     </script>
 </body>
 </html>
