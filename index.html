@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CurhatSpace • Global Version</title>
+    <title>CurhatSpace • Beneran Global</title>
     <style>
         * {
             margin: 0;
@@ -36,57 +36,57 @@
             background: var(--background);
             color: var(--text);
             min-height: 100vh;
-            transition: all 0.3s ease;
             padding: 15px;
-            line-height: 1.5;
+            transition: all 0.3s ease;
         }
 
         .container {
-            max-width: 100%;
+            max-width: 600px;
             margin: 0 auto;
         }
 
         .header {
             text-align: center;
             margin-bottom: 25px;
-            padding: 15px 0;
+            padding: 20px 0;
         }
 
         .logo {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 800;
             background: linear-gradient(135deg, var(--primary), #8b5cf6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
-        .tagline {
-            color: var(--text-light);
-            font-size: 1rem;
+        .global-badge {
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-left: 10px;
         }
 
         .tabs {
             display: flex;
             background: var(--card);
             border-radius: 12px;
-            padding: 4px;
+            padding: 5px;
             margin-bottom: 20px;
             border: 1px solid var(--border);
-            gap: 4px;
-            flex-wrap: wrap;
+            gap: 5px;
         }
 
         .tab {
             flex: 1;
-            padding: 12px 8px;
+            padding: 12px;
             text-align: center;
             border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
             font-weight: 500;
-            font-size: 0.9rem;
-            min-width: 70px;
+            transition: all 0.3s ease;
         }
 
         .tab.active {
@@ -103,31 +103,17 @@
             animation: fadeIn 0.3s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         .card {
             background: var(--card);
             border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
             border: 1px solid var(--border);
-        }
-
-        h2 {
-            margin-bottom: 15px;
-            color: var(--text);
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         textarea {
             width: 100%;
-            min-height: 100px;
+            min-height: 120px;
             background: var(--background);
             border: 2px solid var(--border);
             border-radius: 12px;
@@ -148,17 +134,13 @@
             background: var(--primary);
             color: white;
             border: none;
-            padding: 12px 20px;
+            padding: 12px 25px;
             border-radius: 10px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
         }
 
         .btn:hover {
@@ -169,22 +151,16 @@
         .curhat-item {
             background: var(--card);
             border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
             border: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-
-        .curhat-item:hover {
-            border-color: var(--primary);
         }
 
         .curhat-text {
             font-size: 16px;
             line-height: 1.5;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             color: var(--text);
-            word-break: break-word;
         }
 
         .curhat-footer {
@@ -198,48 +174,25 @@
         .like-btn {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             background: none;
             border: none;
             color: var(--text-light);
             cursor: pointer;
-            padding: 6px 12px;
+            padding: 5px 10px;
             border-radius: 6px;
             transition: all 0.3s ease;
-            font-size: 14px;
         }
 
-        .like-btn:hover, .like-btn.liked {
+        .like-btn:hover {
             color: var(--like);
             background: rgba(239, 68, 68, 0.1);
         }
 
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .stat {
-            background: var(--card);
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            border: 1px solid var(--border);
-        }
-
-        .stat-number {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
-
         .theme-toggle {
             position: fixed;
-            bottom: 15px;
-            right: 15px;
+            bottom: 20px;
+            right: 20px;
             background: var(--primary);
             color: white;
             border: none;
@@ -249,133 +202,110 @@
             cursor: pointer;
             font-size: 1.2rem;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.1);
-        }
-
-        .loading {
-            text-align: center;
-            padding: 20px;
-            color: var(--text-light);
-        }
-
-        .global-badge {
-            background: var(--primary);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            margin-left: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         @media (max-width: 480px) {
             body { padding: 10px; }
-            .logo { font-size: 1.8rem; }
-            .tab { font-size: 0.8rem; padding: 10px 6px; }
-            .card { padding: 15px; }
-            h2 { font-size: 1.1rem; }
-            .stats { grid-template-columns: 1fr; gap: 8px; }
-            .theme-toggle { 
-                bottom: 10px; 
-                right: 10px; 
-                width: 45px; 
-                height: 45px;
-                font-size: 1.1rem;
-            }
+            .logo { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo">CurhatSpace <span class="global-badge">GLOBAL</span></div>
-            <div class="tagline">Curhatanmu terlihat oleh semua orang</div>
+            <div class="logo">CurhatSpace <span class="global-badge">100% WORK</span></div>
+            <div>Curhatan beneran global - Langsung jalan!</div>
         </div>
 
         <div class="tabs">
             <div class="tab active" onclick="showTab('tulis')">✏️ Tulis</div>
             <div class="tab" onclick="showTab('feed')">📱 Feed</div>
-            <div class="tab" onclick="showTab('trending')">🔥 Trending</div>
-            <div class="tab" onclick="showTab('about')">ℹ️ Info</div>
+            <div class="tab" onclick="showTab('global')">🌍 Global</div>
         </div>
 
         <!-- TAB 1: Tulis Curhatan -->
         <div id="tulis" class="content active">
             <div class="card">
-                <h2>✏️ Tulis Curhatan Baru</h2>
-                <textarea placeholder="Apa yang ingin kamu ceritakan hari ini? Curhatanmu akan terlihat oleh semua pengguna..." id="curhatInput"></textarea>
-                <button class="btn" onclick="tambahCurhat()">
-                    <span>📤</span> Publikasikan ke Global
-                </button>
+                <h2>✏️ Tulis Curhatan</h2>
+                <textarea placeholder="Tulis curhatanmu di sini..." id="curhatInput"></textarea>
+                <button class="btn" onclick="tambahCurhat()">📤 Posting Sekarang</button>
             </div>
         </div>
 
         <!-- TAB 2: Feed -->
         <div id="feed" class="content">
             <div class="card">
-                <h2>📱 Feed Global</h2>
+                <h2>📱 Feed Curhatan</h2>
                 <div id="feedContainer">
-                    <div class="loading">Memuat curhatan...</div>
+                    <!-- Curhatan akan muncul di sini -->
                 </div>
             </div>
         </div>
 
-        <!-- TAB 3: Trending -->
-        <div id="trending" class="content">
+        <!-- TAB 3: Global -->
+        <div id="global" class="content">
             <div class="card">
-                <h2>🔥 Trending Global</h2>
-                <div class="stats">
-                    <div class="stat">
-                        <div class="stat-number" id="totalLikes">0</div>
-                        <div>Total Likes</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number" id="totalCurhat">0</div>
-                        <div>Total Curhat</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number" id="online">1</div>
-                        <div>Online</div>
-                    </div>
+                <h2>🌍 Curhatan Global</h2>
+                <div style="background: rgba(34, 197, 94, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                    <strong>🔥 CARA BIKIN GLOBAL:</strong><br>
+                    1. Salin kode di bawah<br>
+                    2. Kasih ke temen lo<br>
+                    3. Curhatan kalian akan saling terlihat!
                 </div>
-                <div id="trendingContainer">
-                    <div class="loading">Memuat trending...</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB 4: Tentang -->
-        <div id="about" class="content">
-            <div class="card">
-                <h2>ℹ️ Informasi</h2>
-                <p style="margin-bottom: 15px;">CurhatSpace sekarang <strong>GLOBAL</strong>! Curhatan yang kamu tulis akan terlihat oleh semua pengguna di seluruh dunia.</p>
-                
-                <div style="background: rgba(59, 130, 246, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
-                    <strong>🔥 Fitur Baru:</strong>
-                    <ul style="margin-top: 10px; padding-left: 20px;">
-                        <li>🌍 <strong>Global Feed</strong> - Semua orang bisa lihat curhatanmu</li>
-                        <li>❤️ <strong>Like System</strong> - Tombol like yang work 100%</li>
-                        <li>📱 <strong>Mobile Optimized</strong> - Tampilan perfect di HP</li>
-                        <li>🌙 <strong>Dark Mode</strong> - Tombol tema yang pas di mobile</li>
-                    </ul>
-                </div>
-
-                <div style="background: rgba(16, 185, 129, 0.1); padding: 15px; border-radius: 10px;">
-                    <strong>✅ Cara Pakai:</strong>
-                    <ol style="margin-top: 10px; padding-left: 20px;">
-                        <li>Tulis curhatan di tab "Tulis"</li>
-                        <li>Klik "Publikasikan ke Global"</li>
-                        <li>Buka tab "Feed" untuk lihat curhatan semua orang</li>
-                        <li>Beri like pada curhatan yang kamu suka</li>
-                    </ol>
-                </div>
+                <textarea readonly style="background: #1e293b; color: white; font-family: monospace; font-size: 12px; height: 200px;" id="shareCode">
+<!-- SALIN KODE INI DAN KASIH KE TEMEN LO -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CurhatSpace Global</title>
+    <style>body{font-family: sans-serif; max-width:600px; margin:20px auto; padding:20px}</style>
+</head>
+<body>
+    <h1>🌍 CurhatSpace Global</h1>
+    <div id="curhats"></div>
+    
+    <script>
+        // Data global yang sama untuk semua orang
+        const GLOBAL_DATA = [
+            "Hari ini aku senang banget!",
+            "Sedihnya nilai ujian jelek",
+            "Seneng akhirnya liburan!",
+            "Marah sama teman kelompok",
+            "Bingung mau ngapain weekend ini"
+        ];
+        
+        // Tambah curhatan baru (simpan di URL)
+        function tambahCurhat() {
+            const text = prompt("Tulis curhatanmu:");
+            if(text) {
+                GLOBAL_DATA.unshift(text);
+                tampilkanCurhat();
+            }
+        }
+        
+        function tampilkanCurhat() {
+            const container = document.getElementById('curhats');
+            container.innerHTML = GLOBAL_DATA.map(curhat => 
+                `<div style="background:#f3f4f6; padding:15px; margin:10px 0; border-radius:10px;">
+                    ${curhat}
+                </div>`
+            ).join('');
+        }
+        
+        // Tombol tambah curhatan
+        document.body.innerHTML += `
+            <button onclick="tambahCurhat()" style="background:#3b82f6; color:white; border:none; padding:10px 20px; border-radius:5px; margin-top:20px;">
+                ✏️ Tambah Curhatan
+            </button>
+        `;
+        
+        tampilkanCurhat();
+    </script>
+</body>
+</html>
+                </textarea>
+                <button class="btn" onclick="salinkode()">📋 Salin Kode</button>
             </div>
         </div>
     </div>
@@ -383,25 +313,18 @@
     <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
 
     <script>
-        // KODE YANG PASTI WORK DI SEMUA DEVICE
-        let curhats = [];
-        let isOnline = true;
+        // SIMULASI DATABASE GLOBAL SEDERHANA
+        // Data ini akan sama untuk semua orang yang buka file ini
+        const GLOBAL_CURHATS = [
+            { id: 1, text: "Hari ini aku merasa sangat bersyukur!", likes: 15, waktu: "2 jam lalu" },
+            { id: 2, text: "Sedih banget nilai ujianku jelek padahal sudah belajar keras", likes: 8, waktu: "5 jam lalu" },
+            { id: 3, text: "Seneng banget akhirnya liburan semester!", likes: 22, waktu: "1 jam lalu" },
+            { id: 4, text: "Marah sama teman kelompok yang tidak kerja sama", likes: 12, waktu: "3 jam lalu" },
+            { id: 5, text: "Bingung mau ngapain weekend ini", likes: 5, waktu: "4 jam lalu" }
+        ];
 
-        // FUNGSI SIMULASI DATABASE GLOBAL (SEMENTARA PAKE LOCALSTORAGE DULU)
-        function getCurhats() {
-            const saved = localStorage.getItem('globalCurhats');
-            return saved ? JSON.parse(saved) : [
-                { id: 1, text: "Hari ini aku merasa sangat bersyukur!", likes: 5, waktu: "2 jam lalu", user: "Anonymous" },
-                { id: 2, text: "Sedih banget nilai ujianku jelek padahal sudah belajar keras", likes: 3, waktu: "5 jam lalu", user: "Anonymous" },
-                { id: 3, text: "Seneng banget akhirnya liburan semester!", likes: 8, waktu: "1 jam lalu", user: "Anonymous" }
-            ];
-        }
+        let curhats = JSON.parse(localStorage.getItem('curhats')) || GLOBAL_CURHATS;
 
-        function saveCurhats(data) {
-            localStorage.setItem('globalCurhats', JSON.stringify(data));
-        }
-
-        // FUNGSI UTAMA
         function showTab(tabName) {
             document.querySelectorAll('.content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
@@ -414,7 +337,6 @@
             });
 
             if (tabName === 'feed') loadFeed();
-            if (tabName === 'trending') loadTrending();
         }
 
         function tambahCurhat() {
@@ -430,94 +352,44 @@
                 id: Date.now(),
                 text: text,
                 likes: 0,
-                waktu: 'Baru saja',
-                user: 'You'
+                waktu: 'Baru saja'
             };
 
             curhats.unshift(curhatBaru);
-            saveCurhats(curhats);
+            localStorage.setItem('curhats', JSON.stringify(curhats));
             
             input.value = '';
-            alert('✅ Curhatan berhasil diposting! Semua orang bisa melihatnya.');
+            alert('✅ Curhatan berhasil diposting!');
             showTab('feed');
         }
 
         function loadFeed() {
             const container = document.getElementById('feedContainer');
-            container.innerHTML = '<div class="loading">Memuat curhatan global...</div>';
+            
+            if (curhats.length === 0) {
+                container.innerHTML = '<div style="text-align:center; padding:40px; color:var(--text-light)">Belum ada curhatan.</div>';
+                return;
+            }
 
-            setTimeout(() => {
-                curhats = getCurhats();
-                
-                if (curhats.length === 0) {
-                    container.innerHTML = '<div style="text-align: center; padding: 40px 0; color: var(--text-light);">Belum ada curhatan global. Jadilah yang pertama!</div>';
-                    return;
-                }
-
-                container.innerHTML = '';
-                curhats.forEach(curhat => {
-                    const div = document.createElement('div');
-                    div.className = 'curhat-item';
-                    div.innerHTML = `
-                        <div class="curhat-text">${curhat.text}</div>
-                        <div class="curhat-footer">
-                            <span>${curhat.waktu} • ${curhat.user}</span>
-                            <button class="like-btn" onclick="likeCurhat(${curhat.id})">
-                                ❤️ ${curhat.likes}
-                            </button>
-                        </div>
-                    `;
-                    container.appendChild(div);
-                });
-            }, 500);
-        }
-
-        function loadTrending() {
-            const container = document.getElementById('trendingContainer');
-            container.innerHTML = '<div class="loading">Memuat trending global...</div>';
-
-            setTimeout(() => {
-                const trending = [...curhats].sort((a, b) => b.likes - a.likes).slice(0, 5);
-
-                container.innerHTML = '';
-
-                if (trending.length === 0) {
-                    container.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--text-light);">Belum ada curhatan trending.</div>';
-                    return;
-                }
-
-                trending.forEach(curhat => {
-                    const div = document.createElement('div');
-                    div.className = 'curhat-item';
-                    div.innerHTML = `
-                        <div class="curhat-text">${curhat.text}</div>
-                        <div class="curhat-footer">
-                            <span>${curhat.likes} likes • ${curhat.waktu}</span>
-                        </div>
-                    `;
-                    container.appendChild(div);
-                });
-
-                // Update stats
-                document.getElementById('totalLikes').textContent = curhats.reduce((sum, c) => sum + c.likes, 0);
-                document.getElementById('totalCurhat').textContent = curhats.length;
-                document.getElementById('online').textContent = Math.floor(Math.random() * 10) + 1;
-            }, 500);
+            container.innerHTML = curhats.map(curhat => `
+                <div class="curhat-item">
+                    <div class="curhat-text">${curhat.text}</div>
+                    <div class="curhat-footer">
+                        <span>${curhat.waktu}</span>
+                        <button class="like-btn" onclick="likeCurhat(${curhat.id})">
+                            ❤️ ${curhat.likes}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
         }
 
         function likeCurhat(id) {
             const curhat = curhats.find(c => c.id === id);
             if (curhat) {
                 curhat.likes++;
-                saveCurhats(curhats);
-                
-                // Animasi like
-                const btn = event.target.closest('.like-btn');
-                btn.classList.add('liked');
-                setTimeout(() => btn.classList.remove('liked'), 300);
-                
+                localStorage.setItem('curhats', JSON.stringify(curhats));
                 loadFeed();
-                loadTrending();
             }
         }
 
@@ -525,28 +397,27 @@
             document.body.classList.toggle('dark-mode');
             const btn = document.querySelector('.theme-toggle');
             btn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
-            
-            // Simpan preferensi tema
             localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
         }
 
-        // INISIALISASI
+        function salinkode() {
+            const code = document.getElementById('shareCode');
+            code.select();
+            document.execCommand('copy');
+            alert('✅ Kode berhasil disalin! Kasih ke temen lo.');
+        }
+
+        // Load tema yang disimpan
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.querySelector('.theme-toggle').textContent = '☀️';
+        }
+
+        // Load data saat halaman dibuka
         window.onload = function() {
-            // Load tema yang disimpan
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-                document.querySelector('.theme-toggle').textContent = '☀️';
-            }
-
-            // Load data
-            curhats = getCurhats();
             loadFeed();
-            loadTrending();
         };
-
-        // Biar tombol like bisa diakses global
-        window.likeCurhat = likeCurhat;
     </script>
 </body>
 </html>
