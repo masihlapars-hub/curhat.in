@@ -3,428 +3,970 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curhat.in - Ruang Curhat Anonim</title>
+    <title>CurhatKuy - Luapkan, Lepaskan, Lanjutkan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary-light: #E3F2FD;
+            --accent-purple: #CE93D8;
+            --accent-mint: #A5D6A7;
+            --accent-orange: #FFCC80;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode {
+            --primary-light: #1A237E;
+            --accent-purple: #7B1FA2;
+            --accent-mint: #388E3C;
+            --accent-orange: #F57C00;
+            --text-dark: #E0E0E0;
+            --text-light: #B0B0B0;
+            --shadow: rgba(255, 255, 255, 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: #333;
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, var(--primary-light) 0%, #F3E5F5 100%);
+            color: var(--text-dark);
             min-height: 100vh;
+            transition: all 0.5s ease;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 20px;
         }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            position: relative;
-        }
-        
+
+        /* Header Styles */
         header {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            color: white;
-            padding: 30px;
             text-align: center;
+            padding: 40px 0 20px;
             position: relative;
-            overflow: hidden;
         }
-        
-        h1 {
-            font-size: 2.8rem;
+
+        .logo {
+            font-family: 'Comfortaa', cursive;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--accent-purple);
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            text-shadow: 2px 2px 4px var(--shadow);
+            animation: float 3s ease-in-out infinite;
         }
-        
+
         .tagline {
             font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 20px;
+            color: var(--text-light);
+            margin-bottom: 30px;
         }
-        
-        .curhat-form {
-            padding: 30px;
-            background: white;
-            border-bottom: 1px solid #eee;
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
         }
-        
-        textarea {
-            width: 100%;
-            height: 150px;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-family: 'Nunito', sans-serif;
             font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn.active {
+            background: var(--accent-purple);
+            color: white;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px var(--shadow);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 6px var(--shadow);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(30deg);
+        }
+
+        /* Main Content Sections */
+        .section {
+            display: none;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 20px var(--shadow);
+            margin-bottom: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Curhat Input Section */
+        .curhat-input-container {
+            text-align: center;
+        }
+
+        .curhat-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--accent-purple);
+        }
+
+        #curhatForm {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        #curhatText {
+            width: 100%;
+            height: 200px;
+            padding: 20px;
+            border: 2px solid var(--accent-mint);
+            border-radius: 15px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.1rem;
             resize: vertical;
-            transition: border 0.3s;
-            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
         }
-        
-        textarea:focus {
+
+        #curhatText:focus {
             outline: none;
-            border-color: #6a11cb;
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 3px rgba(206, 147, 216, 0.3);
         }
-        
-        .char-count {
-            text-align: right;
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 15px;
-        }
-        
-        button {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-mint) 100%);
             color: white;
             border: none;
-            padding: 12px 25px;
+            padding: 15px 30px;
             border-radius: 50px;
-            font-size: 1rem;
-            font-weight: bold;
+            font-family: 'Comfortaa', cursive;
+            font-size: 1.2rem;
             cursor: pointer;
-            transition: all 0.3s;
-            display: block;
-            margin: 0 auto;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px var(--shadow);
+            align-self: center;
         }
-        
-        button:hover {
+
+        .submit-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 8px var(--shadow);
         }
-        
-        button:active {
+
+        .submit-btn:active {
             transform: translateY(1px);
         }
-        
-        .curhats-container {
-            padding: 20px;
-            max-height: 600px;
-            overflow-y: auto;
+
+        /* Curhat Archive Section */
+        .archive-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
-        
+
+        .filter-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.7);
+            border: 2px solid transparent;
+            padding: 8px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn.active {
+            border-color: var(--accent-purple);
+            background: white;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+        }
+
+        #searchInput {
+            padding: 8px 15px;
+            border: 2px solid var(--accent-mint);
+            border-radius: 50px;
+            font-family: 'Nunito', sans-serif;
+            width: 200px;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+        }
+
+        .curhats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
         .curhat-card {
             background: white;
             border-radius: 15px;
             padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border-left: 5px solid #6a11cb;
+            box-shadow: 0 4px 6px var(--shadow);
+            transition: all 0.3s ease;
             position: relative;
-            animation: fadeIn 0.5s ease-out;
-            transition: transform 0.3s;
+            overflow: hidden;
         }
-        
+
         .curhat-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 12px var(--shadow);
         }
-        
+
+        .curhat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+        }
+
+        .curhat-card.happy::before {
+            background-color: var(--accent-mint);
+        }
+
+        .curhat-card.sad::before {
+            background-color: #90CAF9;
+        }
+
+        .curhat-card.angry::before {
+            background-color: #EF9A9A;
+        }
+
+        .curhat-card.confused::before {
+            background-color: var(--accent-orange);
+        }
+
+        .curhat-content {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
         .curhat-meta {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 0.9rem;
-            color: #666;
+            font-size: 0.8rem;
+            color: var(--text-light);
         }
-        
-        .curhat-content {
-            font-size: 1.1rem;
-            line-height: 1.5;
+
+        .emotion-tag {
+            padding: 3px 10px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .happy .emotion-tag {
+            background-color: rgba(165, 214, 167, 0.3);
+            color: #2E7D32;
+        }
+
+        .sad .emotion-tag {
+            background-color: rgba(144, 202, 249, 0.3);
+            color: #1565C0;
+        }
+
+        .angry .emotion-tag {
+            background-color: rgba(239, 154, 154, 0.3);
+            color: #C62828;
+        }
+
+        .confused .emotion-tag {
+            background-color: rgba(255, 204, 128, 0.3);
+            color: #EF6C00;
+        }
+
+        /* About Section */
+        .about-content {
+            line-height: 1.8;
+        }
+
+        .about-content h2 {
+            color: var(--accent-purple);
+            margin: 20px 0 10px;
+        }
+
+        .about-content p {
             margin-bottom: 15px;
         }
-        
-        .curhat-actions {
-            display: flex;
-            gap: 15px;
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
         }
-        
-        .action-btn {
-            background: none;
-            border: none;
-            color: #666;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-        
-        .action-btn:hover {
-            color: #6a11cb;
-            background: #f0f0f0;
-        }
-        
-        .empty-state {
+
+        .feature {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
             text-align: center;
-            padding: 40px;
-            color: #666;
+            box-shadow: 0 4px 6px var(--shadow);
         }
-        
-        .empty-state i {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            color: #c3cfe2;
-        }
-        
-        /* Animasi karakter lucu */
-        .floating-characters {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 0;
-        }
-        
-        .character {
-            position: absolute;
+
+        .feature i {
             font-size: 2rem;
-            opacity: 0.7;
-            animation: float 6s infinite ease-in-out;
+            color: var(--accent-purple);
+            margin-bottom: 10px;
         }
-        
-        .char-1 { top: 10%; left: 5%; animation-delay: 0s; }
-        .char-2 { top: 20%; right: 10%; animation-delay: 1s; }
-        .char-3 { bottom: 30%; left: 15%; animation-delay: 2s; }
-        .char-4 { bottom: 15%; right: 5%; animation-delay: 3s; }
-        .char-5 { top: 40%; left: 50%; animation-delay: 4s; }
-        
+
         /* Footer */
         footer {
             text-align: center;
             padding: 20px;
-            background: #f8f9fa;
-            color: #666;
+            color: var(--text-light);
             font-size: 0.9rem;
         }
-        
-        /* Animasi */
+
+        /* Animations */
         @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-            100% { transform: translateY(0) rotate(0deg); }
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
-        
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
-        /* Responsif */
+
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* Cloud Animation */
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            opacity: 0.7;
+            z-index: -1;
+        }
+
+        .cloud1 {
+            width: 120px;
+            height: 40px;
+            top: 10%;
+            left: -150px;
+            animation: cloudMove 25s linear infinite;
+        }
+
+        .cloud2 {
+            width: 180px;
+            height: 60px;
+            top: 25%;
+            right: -200px;
+            animation: cloudMove 30s linear infinite;
+        }
+
+        .cloud3 {
+            width: 100px;
+            height: 30px;
+            top: 60%;
+            left: -120px;
+            animation: cloudMove 20s linear infinite;
+        }
+
+        @keyframes cloudMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(100vw + 200px)); }
+        }
+
+        /* Bird Animation */
+        .bird {
+            position: absolute;
+            font-size: 2rem;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        .bird1 {
+            top: 15%;
+            left: -50px;
+            animation: birdFly 15s linear infinite;
+        }
+
+        .bird2 {
+            top: 70%;
+            right: -50px;
+            animation: birdFly 20s linear infinite 5s;
+        }
+
+        @keyframes birdFly {
+            0% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(25vw) translateY(-20px); }
+            50% { transform: translateX(50vw) translateY(0); }
+            75% { transform: translateX(75vw) translateY(20px); }
+            100% { transform: translateX(100vw) translateY(0); }
+        }
+
+        /* Floating Emojis */
+        .floating-emoji {
+            position: absolute;
+            font-size: 1.5rem;
+            z-index: -1;
+            opacity: 0.5;
+            animation: floatAround 15s infinite linear;
+        }
+
+        @keyframes floatAround {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(100px, -50px) rotate(90deg); }
+            50% { transform: translate(200px, 0) rotate(180deg); }
+            75% { transform: translate(100px, 50px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+
+        /* Sloth Character */
+        .sloth-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 99;
+        }
+
+        .sloth {
+            font-size: 4rem;
+            cursor: pointer;
+            animation: slothHang 3s ease-in-out infinite;
+            filter: drop-shadow(2px 2px 4px var(--shadow));
+        }
+
+        @keyframes slothHang {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        .sloth-message {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px var(--shadow);
+            width: 200px;
+            margin-bottom: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .sloth-container:hover .sloth-message {
+            opacity: 1;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-purple);
+            opacity: 0;
+            z-index: 1000;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .container {
-                border-radius: 10px;
+            .logo {
+                font-size: 2.5rem;
             }
             
-            h1 {
-                font-size: 2rem;
+            nav {
+                flex-direction: column;
+                align-items: center;
             }
             
-            .curhat-form, .curhats-container {
-                padding: 20px;
+            .nav-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
             }
             
-            .character {
-                font-size: 1.5rem;
+            .archive-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .search-box {
+                width: 100%;
+                margin-top: 10px;
+            }
+            
+            #searchInput {
+                width: 100%;
+            }
+            
+            .curhats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sloth-container {
+                display: none; /* Hide on mobile for better UX */
             }
         }
     </style>
 </head>
 <body>
+    <!-- Animated Background Elements -->
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="cloud cloud3"></div>
+    
+    <div class="bird bird1">🕊️</div>
+    <div class="bird bird2">🐦</div>
+    
+    <!-- Floating Emojis -->
+    <div class="floating-emoji" style="top: 10%; left: 10%;">😊</div>
+    <div class="floating-emoji" style="top: 20%; left: 80%;">😢</div>
+    <div class="floating-emoji" style="top: 80%; left: 20%;">😠</div>
+    <div class="floating-emoji" style="top: 60%; left: 60%;">🤔</div>
+    
+    <!-- Sloth Character -->
+    <div class="sloth-container">
+        <div class="sloth-message" id="slothMessage">Ayo ceritakan perasaanmu...</div>
+        <div class="sloth" id="sloth">🦥</div>
+    </div>
+    
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+    
     <div class="container">
-        <!-- Karakter animasi lucu -->
-        <div class="floating-characters">
-            <div class="character char-1">😊</div>
-            <div class="character char-2">🤗</div>
-            <div class="character char-3">😴</div>
-            <div class="character char-4">🤔</div>
-            <div class="character char-5">😌</div>
-        </div>
-        
         <header>
-            <h1>Curhat.in</h1>
-            <p class="tagline">Ruang aman untuk berbagi cerita tanpa nama</p>
+            <h1 class="logo">CurhatKuy</h1>
+            <p class="tagline">Luapkan, Lepaskan, Lanjutkan</p>
         </header>
         
-        <section class="curhat-form">
-            <h2><i class="fas fa-pencil-alt"></i> Tulis Curhatanmu</h2>
-            <textarea id="curhatText" placeholder="Tuliskan apa yang ingin kamu curhatkan di sini... (maksimal 500 karakter)" maxlength="500"></textarea>
-            <div class="char-count"><span id="charCount">0</span>/500 karakter</div>
-            <button id="submitCurhat"><i class="fas fa-paper-plane"></i> Kirim Curhatan</button>
-        </section>
+        <nav>
+            <button class="nav-btn active" data-section="curhat"><i class="fas fa-pencil-alt"></i> Curhat Baru</button>
+            <button class="nav-btn" data-section="archive"><i class="fas fa-archive"></i> Arsip Curhatan</button>
+            <button class="nav-btn" data-section="about"><i class="fas fa-info-circle"></i> Tentang</button>
+        </nav>
         
-        <section class="curhats-container">
-            <h2><i class="fas fa-heart"></i> Curhatan Terbaru</h2>
-            <div id="curhatsList">
-                <!-- Curhatan akan dimuat di sini -->
-            </div>
-        </section>
+        <main>
+            <!-- Curhat Input Section -->
+            <section id="curhat" class="section active">
+                <div class="curhat-input-container">
+                    <h2 class="curhat-title">Apa yang ingin kamu curhatkan?</h2>
+                    <form id="curhatForm">
+                        <textarea id="curhatText" placeholder="Tuliskan apa yang kamu rasakan di sini... Jangan khawatir, curhatanmu aman dan anonim."></textarea>
+                        <button type="submit" class="submit-btn">Lepaskan Perasaan</button>
+                    </form>
+                </div>
+            </section>
+            
+            <!-- Curhat Archive Section -->
+            <section id="archive" class="section">
+                <div class="archive-header">
+                    <h2>Arsip Curhatan</h2>
+                    <div class="filter-options">
+                        <button class="filter-btn active" data-filter="all">Semua</button>
+                        <button class="filter-btn" data-filter="happy">Senang</button>
+                        <button class="filter-btn" data-filter="sad">Sedih</button>
+                        <button class="filter-btn" data-filter="angry">Marah</button>
+                        <button class="filter-btn" data-filter="confused">Bingung</button>
+                    </div>
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Cari curhatan...">
+                        <button class="filter-btn" id="searchBtn"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="curhats-grid" id="curhatsContainer">
+                    <!-- Curhat cards will be inserted here by JavaScript -->
+                </div>
+            </section>
+            
+            <!-- About Section -->
+            <section id="about" class="section">
+                <div class="about-content">
+                    <h2>Tentang CurhatKuy</h2>
+                    <p>CurhatKuy adalah platform aman untuk mengekspresikan perasaanmu tanpa takut dihakimi. Di sini, kamu bisa menuliskan apa yang kamu rasakan secara anonim dan melepaskan beban yang kamu pendam.</p>
+                    
+                    <h2>Mengapa CurhatKuy?</h2>
+                    <p>Kami percaya bahwa setiap perasaan valid dan penting untuk diekspresikan. Dengan menuliskan apa yang kita rasakan, kita bisa lebih memahami diri sendiri dan merasa lebih lega.</p>
+                    
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-user-secret"></i>
+                            <h3>Anonimitas Total</h3>
+                            <p>Kami tidak menyimpan data pribadi apapun. Curhatanmu benar-benar anonim.</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-heart"></i>
+                            <h3>Tanpa Penilaian</h3>
+                            <p>Tidak ada yang bisa memberikan komentar atau menilai curhatanmu.</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-lock"></i>
+                            <h3>Privasi Terjaga</h3>
+                            <p>Data curhatan disimpan secara lokal di perangkatmu sendiri.</p>
+                        </div>
+                    </div>
+                    
+                    <h2>Bagaimana Cara Menggunakan?</h2>
+                    <ol>
+                        <li>Klik tab "Curhat Baru"</li>
+                        <li>Tuliskan perasaanmu di kotak teks</li>
+                        <li>Klik tombol "Lepaskan Perasaan"</li>
+                        <li>Baca curhatan orang lain di tab "Arsip Curhatan" untuk merasa tidak sendiri</li>
+                    </ol>
+                    
+                    <h2>Privasi dan Keamanan</h2>
+                    <p>Kami sangat menghargai privasimu. Semua curhatan disimpan secara lokal di browser perangkatmu dan tidak dikirim ke server manapun. Data tidak akan terbaca oleh orang lain kecuali mereka memiliki akses ke perangkatmu.</p>
+                    
+                    <p><strong>Ingat:</strong> Jika kamu membutuhkan bantuan profesional, jangan ragu untuk menghubungi layanan kesehatan mental terdekat.</p>
+                </div>
+            </section>
+        </main>
         
         <footer>
-            <p>Curhat.in &copy; 2023 - Semua curhatan bersifat anonim dan tidak dapat dilacak</p>
+            <p>Dibuat dengan ❤️ untuk kesehatan mental yang lebih baik | CurhatKuy © 2023</p>
         </footer>
     </div>
 
     <script>
-        // Elemen DOM
+        // DOM Elements
+        const themeToggle = document.getElementById('themeToggle');
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const sections = document.querySelectorAll('.section');
+        const curhatForm = document.getElementById('curhatForm');
         const curhatText = document.getElementById('curhatText');
-        const charCount = document.getElementById('charCount');
-        const submitBtn = document.getElementById('submitCurhat');
-        const curhatsList = document.getElementById('curhatsList');
-        
-        // Inisialisasi curhatan dari localStorage atau data contoh
-        let curhats = JSON.parse(localStorage.getItem('curhats')) || [
-            {
-                id: 1,
-                content: "Hari ini aku merasa sangat lelah dengan semua tekanan kerja. Kadang pengen lari dari semua tanggung jawab ini.",
-                timestamp: new Date().getTime() - 3600000,
-                likes: 3
-            },
-            {
-                id: 2,
-                content: "Aku rindu sama seseorang yang sudah tidak ada lagi di hidupku. Kenangan itu masih sering terngiang.",
-                timestamp: new Date().getTime() - 7200000,
-                likes: 7
-            },
-            {
-                id: 3,
-                content: "Seneng banget hari ini bisa menyelesaikan project yang sudah ditunda-tunda lama. Akhirnya lega!",
-                timestamp: new Date().getTime() - 10800000,
-                likes: 5
+        const curhatsContainer = document.getElementById('curhatsContainer');
+        const filterButtons = document.querySelectorAll('.filter-btn[data-filter]');
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const sloth = document.getElementById('sloth');
+        const slothMessage = document.getElementById('slothMessage');
+
+        // Check if dark mode is enabled
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+
+        // Theme Toggle
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                localStorage.setItem('darkMode', 'disabled');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
             }
-        ];
-        
-        // Update karakter count
-        curhatText.addEventListener('input', function() {
-            charCount.textContent = this.value.length;
         });
-        
-        // Format waktu relatif
-        function formatTime(timestamp) {
-            const now = new Date().getTime();
-            const diff = now - timestamp;
-            
-            const minutes = Math.floor(diff / 60000);
-            const hours = Math.floor(diff / 3600000);
-            const days = Math.floor(diff / 86400000);
-            
-            if (minutes < 1) return 'Baru saja';
-            if (minutes < 60) return `${minutes} menit yang lalu`;
-            if (hours < 24) return `${hours} jam yang lalu`;
-            return `${days} hari yang lalu`;
-        }
-        
-        // Render curhatan
-        function renderCurhats() {
-            if (curhats.length === 0) {
-                curhatsList.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-comment-slash"></i>
-                        <h3>Belum ada curhatan</h3>
-                        <p>Jadilah yang pertama berbagi cerita</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            // Urutkan berdasarkan waktu (terbaru pertama)
-            const sortedCurhats = [...curhats].sort((a, b) => b.timestamp - a.timestamp);
-            
-            curhatsList.innerHTML = sortedCurhats.map(curhat => `
-                <div class="curhat-card" data-id="${curhat.id}">
-                    <div class="curhat-meta">
-                        <span><i class="fas fa-user-secret"></i> Anonim</span>
-                        <span><i class="far fa-clock"></i> ${formatTime(curhat.timestamp)}</span>
-                    </div>
-                    <div class="curhat-content">
-                        ${curhat.content}
-                    </div>
-                    <div class="curhat-actions">
-                        <button class="action-btn like-btn" data-id="${curhat.id}">
-                            <i class="far fa-heart"></i> <span class="like-count">${curhat.likes}</span>
-                        </button>
-                        <button class="action-btn">
-                            <i class="far fa-bookmark"></i> Simpan
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-            
-            // Tambahkan event listener untuk like button
-            document.querySelectorAll('.like-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const id = parseInt(this.getAttribute('data-id'));
-                    likeCurhat(id);
-                });
-            });
-        }
-        
-        // Like curhatan
-        function likeCurhat(id) {
-            const curhat = curhats.find(c => c.id === id);
-            if (curhat) {
-                curhat.likes += 1;
-                localStorage.setItem('curhats', JSON.stringify(curhats));
-                renderCurhats();
+
+        // Navigation
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetSection = button.getAttribute('data-section');
                 
-                // Animasi like
-                const likeBtn = document.querySelector(`.like-btn[data-id="${id}"]`);
-                likeBtn.innerHTML = '<i class="fas fa-heart" style="color: #e74c3c;"></i> ' + curhat.likes;
-                likeBtn.style.color = '#e74c3c';
+                // Update active nav button
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Show target section
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                    if (section.id === targetSection) {
+                        section.classList.add('active');
+                    }
+                });
+                
+                // If archive section, load curhats
+                if (targetSection === 'archive') {
+                    loadCurhats();
+                }
+            });
+        });
+
+        // Filter Curhats
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.getAttribute('data-filter');
+                
+                // Update active filter button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Filter curhats
+                filterCurhats(filter);
+            });
+        });
+
+        // Search Curhats
+        searchBtn.addEventListener('click', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            filterCurhats('all', searchTerm);
+        });
+
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                const searchTerm = searchInput.value.toLowerCase();
+                filterCurhats('all', searchTerm);
+            }
+        });
+
+        // Sloth Animation and Messages
+        const slothMessages = [
+            "Ayo ceritakan perasaanmu...",
+            "Setiap perasaan itu valid!",
+            "Kamu tidak sendirian...",
+            "Menulis bisa membuatmu lega",
+            "Lepaskan bebanmu di sini",
+            "Aku di sini untuk mendengarkan"
+        ];
+
+        let messageIndex = 0;
+        setInterval(() => {
+            slothMessage.textContent = slothMessages[messageIndex];
+            messageIndex = (messageIndex + 1) % slothMessages.length;
+        }, 5000);
+
+        // Animate sloth when typing
+        curhatText.addEventListener('focus', () => {
+            sloth.style.animation = 'slothHang 1s ease-in-out infinite';
+            slothMessage.textContent = "Aku mendengarkan...";
+        });
+
+        curhatText.addEventListener('blur', () => {
+            sloth.style.animation = 'slothHang 3s ease-in-out infinite';
+        });
+
+        // Detect emotion from text
+        function detectEmotion(text) {
+            const happyWords = ['senang', 'bahagia', 'gembira', 'senang', 'asyik', 'mantap', 'keren', 'hebat', 'baik', 'sukses'];
+            const sadWords = ['sedih', 'kecewa', 'menangis', 'putus asa', 'pilu', 'duka', 'susah', 'berduka'];
+            const angryWords = ['marah', 'kesal', 'jengkel', 'benci', 'dendam', 'gemes', 'sebal', 'ngamuk'];
+            const confusedWords = ['bingung', 'ragu', 'tidak tahu', 'galau', 'pusing', 'khawatir', 'cemas', 'takut'];
+            
+            let happyCount = 0;
+            let sadCount = 0;
+            let angryCount = 0;
+            let confusedCount = 0;
+            
+            const words = text.toLowerCase().split(/\s+/);
+            
+            words.forEach(word => {
+                if (happyWords.includes(word)) happyCount++;
+                if (sadWords.includes(word)) sadCount++;
+                if (angryWords.includes(word)) angryCount++;
+                if (confusedWords.includes(word)) confusedCount++;
+            });
+            
+            const counts = { happy: happyCount, sad: sadCount, angry: angryCount, confused: confusedCount };
+            const maxEmotion = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+            
+            // If no emotion words detected, default to confused
+            return counts[maxEmotion] > 0 ? maxEmotion : 'confused';
+        }
+
+        // Create confetti effect
+        function createConfetti() {
+            const colors = ['#CE93D8', '#A5D6A7', '#90CAF9', '#FFCC80', '#EF9A9A'];
+            const confettiCount = 100;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.height = Math.random() * 10 + 5 + 'px';
+                confetti.style.opacity = '1';
+                document.body.appendChild(confetti);
+                
+                // Animation
+                const animation = confetti.animate([
+                    { transform: `translateY(0) rotate(0deg)`, opacity: 1 },
+                    { transform: `translateY(100vh) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 3000 + 2000,
+                    easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
+                });
+                
+                // Remove confetti after animation
+                animation.onfinish = () => {
+                    confetti.remove();
+                };
             }
         }
-        
-        // Submit curhatan baru
-        submitBtn.addEventListener('click', function() {
-            const content = curhatText.value.trim();
-            
-            if (content === '') {
-                alert('Silakan tulis curhatanmu terlebih dahulu!');
-                return;
-            }
-            
-            if (content.length < 10) {
-                alert('Curhatan terlalu pendek. Minimal 10 karakter!');
-                return;
-            }
-            
-            const newCurhat = {
-                id: curhats.length > 0 ? Math.max(...curhats.map(c => c.id)) + 1 : 1,
-                content: content,
-                timestamp: new Date().getTime(),
-                likes: 0
+
+        // Save curhat to localStorage
+        function saveCurhat(text) {
+            const emotion = detectEmotion(text);
+            const timestamp = new Date().toLocaleString('id-ID');
+            const curhat = {
+                text: text,
+                emotion: emotion,
+                timestamp: timestamp,
+                id: Date.now()
             };
             
-            curhats.push(newCurhat);
+            let curhats = JSON.parse(localStorage.getItem('curhats')) || [];
+            curhats.unshift(curhat); // Add to beginning of array
             localStorage.setItem('curhats', JSON.stringify(curhats));
+            
+            return curhat;
+        }
+
+        // Load curhats from localStorage
+        function loadCurhats() {
+            const curhats = JSON.parse(localStorage.getItem('curhats')) || [];
+            curhatsContainer.innerHTML = '';
+            
+            if (curhats.length === 0) {
+                curhatsContainer.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; padding: 40px;">Belum ada curhatan. Jadilah yang pertama berbagi perasaan!</p>';
+                return;
+            }
+            
+            curhats.forEach(curhat => {
+                const curhatCard = document.createElement('div');
+                curhatCard.className = `curhat-card ${curhat.emotion}`;
+                curhatCard.innerHTML = `
+                    <div class="curhat-content">${curhat.text}</div>
+                    <div class="curhat-meta">
+                        <span class="emotion-tag">${curhat.emotion}</span>
+                        <span>${curhat.timestamp}</span>
+                    </div>
+                `;
+                curhatsContainer.appendChild(curhatCard);
+            });
+        }
+
+        // Filter curhats by emotion and/or search term
+        function filterCurhats(emotionFilter = 'all', searchTerm = '') {
+            const curhats = JSON.parse(localStorage.getItem('curhats')) || [];
+            curhatsContainer.innerHTML = '';
+            
+            let filteredCurhats = curhats;
+            
+            if (emotionFilter !== 'all') {
+                filteredCurhats = filteredCurhats.filter(curhat => curhat.emotion === emotionFilter);
+            }
+            
+            if (searchTerm) {
+                filteredCurhats = filteredCurhats.filter(curhat => 
+                    curhat.text.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            if (filteredCurhats.length === 0) {
+                curhatsContainer.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; padding: 40px;">Tidak ada curhatan yang sesuai dengan filter.</p>';
+                return;
+            }
+            
+            filteredCurhats.forEach(curhat => {
+                const curhatCard = document.createElement('div');
+                curhatCard.className = `curhat-card ${curhat.emotion}`;
+                curhatCard.innerHTML = `
+                    <div class="curhat-content">${curhat.text}</div>
+                    <div class="curhat-meta">
+                        <span class="emotion-tag">${curhat.emotion}</span>
+                        <span>${curhat.timestamp}</span>
+                    </div>
+                `;
+                curhatsContainer.appendChild(curhatCard);
+            });
+        }
+
+        // Form submission
+        curhatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const text = curhatText.value.trim();
+            
+            if (text === '') {
+                alert('Tuliskan sesuatu sebelum mengirim curhatan.');
+                return;
+            }
+            
+            // Save curhat
+            saveCurhat(text);
+            
+            // Show success message with confetti
+            createConfetti();
+            slothMessage.textContent = "Terima kasih sudah berbagi!";
             
             // Reset form
             curhatText.value = '';
-            charCount.textContent = '0';
             
-            // Render ulang
-            renderCurhats();
-            
-            // Scroll ke curhatan baru
-            const newCurhatElement = document.querySelector(`.curhat-card[data-id="${newCurhat.id}"]`);
-            if (newCurhatElement) {
-                newCurhatElement.scrollIntoView({ behavior: 'smooth' });
-            }
-            
-            // Tampilkan pesan sukses
-            alert('Curhatanmu telah terkirim! Terima kasih sudah berbagi ❤️');
+            // Switch to archive section after a delay
+            setTimeout(() => {
+                document.querySelector('.nav-btn[data-section="archive"]').click();
+            }, 2000);
         });
-        
-        // Inisialisasi
-        renderCurhats();
+
+        // Initialize
+        loadCurhats();
     </script>
 </body>
 </html>
