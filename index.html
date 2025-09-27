@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curhat.in - Ruang Curhat Anonim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .curhat-form {
+            padding: 30px;
+            background: white;
+            border-bottom: 1px solid #eee;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            resize: vertical;
+            transition: border 0.3s;
+            margin-bottom: 15px;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #6a11cb;
+        }
+        
+        .char-count {
+            text-align: right;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        .curhats-container {
+            padding: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .curhat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #6a11cb;
+            position: relative;
+            animation: fadeIn 0.5s ease-out;
+            transition: transform 0.3s;
+        }
+        
+        .curhat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .curhat-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .curhat-content {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .curhat-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        
+        .action-btn:hover {
+            color: #6a11cb;
+            background: #f0f0f0;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #c3cfe2;
+        }
+        
+        /* Animasi karakter lucu */
+        .floating-characters {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .character {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.7;
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        .char-1 { top: 10%; left: 5%; animation-delay: 0s; }
+        .char-2 { top: 20%; right: 10%; animation-delay: 1s; }
+        .char-3 { bottom: 30%; left: 15%; animation-delay: 2s; }
+        .char-4 { bottom: 15%; right: 5%; animation-delay: 3s; }
+        .char-5 { top: 40%; left: 50%; animation-delay: 4s; }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Animasi */
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsif */
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .curhat-form, .curhats-container {
+                padding: 20px;
+            }
+            
+            .character {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Karakter animasi lucu -->
+        <div class="floating-characters">
+            <div class="character char-1">😊</div>
+            <div class="character char-2">🤗</div>
+            <div class="character char-3">😴</div>
+            <div class="character char-4">🤔</div>
+            <div class="character char-5">😌</div>
+        </div>
+        
+        <header>
+            <h1>Curhat.in</h1>
+            <p class="tagline">Ruang aman untuk berbagi cerita tanpa nama</p>
+        </header>
+        
+        <section class="curhat-form">
+            <h2><i class="fas fa-pencil-alt"></i> Tulis Curhatanmu</h2>
+            <textarea id="curhatText" placeholder="Tuliskan apa yang ingin kamu curhatkan di sini... (maksimal 500 karakter)" maxlength="500"></textarea>
+            <div class="char-count"><span id="charCount">0</span>/500 karakter</div>
+            <button id="submitCurhat"><i class="fas fa-paper-plane"></i> Kirim Curhatan</button>
+        </section>
+        
+        <section class="curhats-container">
+            <h2><i class="fas fa-heart"></i> Curhatan Terbaru</h2>
+            <div id="curhatsList">
+                <!-- Curhatan akan dimuat di sini -->
+            </div>
+        </section>
+        
+        <footer>
+            <p>Curhat.in &copy; 2023 - Semua curhatan bersifat anonim dan tidak dapat dilacak</p>
+        </footer>
+    </div>
+
+    <script>
+        // Elemen DOM
+        const curhatText = document.getElementById('curhatText');
+        const charCount = document.getElementById('charCount');
+        const submitBtn = document.getElementById('submitCurhat');
+        const curhatsList = document.getElementById('curhatsList');
+        
+        // Inisialisasi curhatan dari localStorage atau data contoh
+        let curhats = JSON.parse(localStorage.getItem('curhats')) || [
+            {
+                id: 1,
+                content: "Hari ini aku merasa sangat lelah dengan semua tekanan kerja. Kadang pengen lari dari semua tanggung jawab ini.",
+                timestamp: new Date().getTime() - 3600000,
+                likes: 3
+            },
+            {
+                id: 2,
+                content: "Aku rindu sama seseorang yang sudah tidak ada lagi di hidupku. Kenangan itu masih sering terngiang.",
+                timestamp: new Date().getTime() - 7200000,
+                likes: 7
+            },
+            {
+                id: 3,
+                content: "Seneng banget hari ini bisa menyelesaikan project yang sudah ditunda-tunda lama. Akhirnya lega!",
+                timestamp: new Date().getTime() - 10800000,
+                likes: 5
+            }
+        ];
+        
+        // Update karakter count
+        curhatText.addEventListener('input', function() {
+            charCount.textContent = this.value.length;
+        });
+        
+        // Format waktu relatif
+        function formatTime(timestamp) {
+            const now = new Date().getTime();
+            const diff = now - timestamp;
+            
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(diff / 3600000);
+            const days = Math.floor(diff / 86400000);
+            
+            if (minutes < 1) return 'Baru saja';
+            if (minutes < 60) return `${minutes} menit yang lalu`;
+            if (hours < 24) return `${hours} jam yang lalu`;
+            return `${days} hari yang lalu`;
+        }
+        
+        // Render curhatan
+        function renderCurhats() {
+            if (curhats.length === 0) {
+                curhatsList.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-comment-slash"></i>
+                        <h3>Belum ada curhatan</h3>
+                        <p>Jadilah yang pertama berbagi cerita</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Urutkan berdasarkan waktu (terbaru pertama)
+            const sortedCurhats = [...curhats].sort((a, b) => b.timestamp - a.timestamp);
+            
+            curhatsList.innerHTML = sortedCurhats.map(curhat => `
+                <div class="curhat-card" data-id="${curhat.id}">
+                    <div class="curhat-meta">
+                        <span><i class="fas fa-user-secret"></i> Anonim</span>
+                        <span><i class="far fa-clock"></i> ${formatTime(curhat.timestamp)}</span>
+                    </div>
+                    <div class="curhat-content">
+                        ${curhat.content}
+                    </div>
+                    <div class="curhat-actions">
+                        <button class="action-btn like-btn" data-id="${curhat.id}">
+                            <i class="far fa-heart"></i> <span class="like-count">${curhat.likes}</span>
+                        </button>
+                        <button class="action-btn">
+                            <i class="far fa-bookmark"></i> Simpan
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Tambahkan event listener untuk like button
+            document.querySelectorAll('.like-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    likeCurhat(id);
+                });
+            });
+        }
+        
+        // Like curhatan
+        function likeCurhat(id) {
+            const curhat = curhats.find(c => c.id === id);
+            if (curhat) {
+                curhat.likes += 1;
+                localStorage.setItem('curhats', JSON.stringify(curhats));
+                renderCurhats();
+                
+                // Animasi like
+                const likeBtn = document.querySelector(`.like-btn[data-id="${id}"]`);
+                likeBtn.innerHTML = '<i class="fas fa-heart" style="color: #e74c3c;"></i> ' + curhat.likes;
+                likeBtn.style.color = '#e74c3c';
+            }
+        }
+        
+        // Submit curhatan baru
+        submitBtn.addEventListener('click', function() {
+            const content = curhatText.value.trim();
+            
+            if (content === '') {
+                alert('Silakan tulis curhatanmu terlebih dahulu!');
+                return;
+            }
+            
+            if (content.length < 10) {
+                alert('Curhatan terlalu pendek. Minimal 10 karakter!');
+                return;
+            }
+            
+            const newCurhat = {
+                id: curhats.length > 0 ? Math.max(...curhats.map(c => c.id)) + 1 : 1,
+                content: content,
+                timestamp: new Date().getTime(),
+                likes: 0
+            };
+            
+            curhats.push(newCurhat);
+            localStorage.setItem('curhats', JSON.stringify(curhats));
+            
+            // Reset form
+            curhatText.value = '';
+            charCount.textContent = '0';
+            
+            // Render ulang
+            renderCurhats();
+            
+            // Scroll ke curhatan baru
+            const newCurhatElement = document.querySelector(`.curhat-card[data-id="${newCurhat.id}"]`);
+            if (newCurhatElement) {
+                newCurhatElement.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Tampilkan pesan sukses
+            alert('Curhatanmu telah terkirim! Terima kasih sudah berbagi ❤️');
+        });
+        
+        // Inisialisasi
+        renderCurhats();
+    </script>
+</body>
+</html>
